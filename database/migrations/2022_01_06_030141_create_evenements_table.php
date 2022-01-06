@@ -21,7 +21,7 @@ class CreateEvenementsTable extends Migration
             $table->boolean('ETAT_EVENT');
             $table->date('START_EVENT');
             $table->date('END_EVENT')->nullable();
-            $table->timestamp('DATE_CREATE', 6)->default('current_timestamp(6)');
+            $table->timestamp('DATE_CREATE', 6);
             $table->timestamp('DATE_UPDATE', 6)->nullable();
         });
     }
