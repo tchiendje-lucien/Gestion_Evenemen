@@ -23,7 +23,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="py-2 bg-white rounded collapse-inner">
                     <h6 class="collapse-header">Custom Events:</h6>
-                    <a class="collapse-item" href="/create-event">Enreigistrer un evenement</a>
+                    <a class="collapse-item" href="/">Enreigistrer un evenement</a>
                     <a class="collapse-item" href="/my-agenda">Consulter mon agenda</a>
                 </div>
             </div>

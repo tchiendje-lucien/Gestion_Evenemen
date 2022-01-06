@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ARSEL - gérer un adlinistrateur</title>
+    <title>Gest-Event</title>
 
     @include('include.header_admin')
 

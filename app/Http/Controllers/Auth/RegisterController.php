@@ -96,27 +96,10 @@ class RegisterController extends Controller
             'full_name' =>'required',
             're_password' =>'required',
             'email' =>'required|email|unique:users',
-            'password' =>'required',
+            'password' => 'min:6|required_with:re_password|same:re_password',
+            're_password' => 'required|string|min:6',
         ]);
 
-        if (
-            !isset($full_name) || empty($full_name) || !isset($password) ||
-            empty($password) || !isset($email) || empty($email) ||
-            !isset($re_password) || empty($re_password)
-        ) {
-            return back()
-                ->withInput()
-                ->with('error', 'Veillez remplir tous les champs');
-        }
-        if (!preg_match($EMAIL_REGEX, $email)) {
-            return back()->with('error', 'Cette adresse email est invalide');
-        }
-        if (!preg_match($PASSWORD_REGEX, $password)) {
-            return back()->with('error', 'mot de passe invalide (doit être de 4 à 20 carractere et inclure au moins 1 chiffre et un symbole');
-        }
-        if ($password != $re_password) {
-            return back()->with('error', 'Les adresse sont diffrentes');
-        }
         $select_user_name = DB::table('users')
             ->where('FULL_NAME', $full_name)
             ->get();
@@ -129,12 +112,16 @@ class RegisterController extends Controller
             if ($select_user_email->count() > 0) {
                 return back()->with('user_error', 'Cette adresse email est deja utilisé');
             } else {
-                $insert_user = DB::insert(
-                    'insert into users (FULL_NAME, EMAIL, PASSWORD, TELEPHONE, PHOTO_USER, ETAT_USER, DATE_CREATE, DATE_UPDATE)
-                     values(?,?,?,?,?,?,?,?)',
+                $insert_user = DB::table('users')->insert(
                     [
-                        $full_name, $email, Hash::make($password), null, $photo_admin,
-                        1, Carbon::now(), Carbon::now()
+                        "FULL_NAME" => $full_name,
+                        "EMAIL" => $email,
+                        "PASSWORD" => Hash::make($password),
+                        "TELEPHONE" => null,
+                        "PHOTO_USER" => $photo_admin,
+                        "ETAT_USER" => 1,
+                        "DATE_CREATE" => Carbon::now(),
+                        "DATE_UPDATE" => Carbon::now(),
                     ]
                 );
                 if ($insert_user) {
