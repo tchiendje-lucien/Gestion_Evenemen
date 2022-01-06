@@ -142,7 +142,6 @@ class RegisterController extends Controller
                 } else {
                     return back()->with('error', "Une erreur c'est produite lors de la creation de compte !!! veillez reesayer");
                 }
-                //Mail::to('luciendidier237@gmail.com')->send(new adminMail($data));
             }
         }
     }
